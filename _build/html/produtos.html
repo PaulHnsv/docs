@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Autenticação &mdash; PedePronto 1.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Autenticação" href="SMS.html" />
+    <link rel="prev" title="Autenticação" href="resgate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PedePronto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Index:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apendice.html">Apêndice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="endpointsDaAPI.html">Endpoints Da API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#login-company">Login / Company</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#pedidos">Pedidos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#resgate">Resgate</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="endpointsDaAPI.html#produtos">Produtos</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cadastro-de-produtos-product-list">Cadastro de produtos (product-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listagem-de-produtos-company-product-list">Listagem de produtos (company-product-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#alteracao-de-disponibilidade-de-produtos-product-unavailable">Alteração de disponibilidade de produtos (product-unavailable)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#envio-de-sms-sgm">Envio de SMS (SGM)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PedePronto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="endpointsDaAPI.html">Endpoints Da API</a> &raquo;</li>
+        
+      <li>Autenticação</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/produtos.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="autenticacao">
+<h1>Autenticação<a class="headerlink" href="#autenticacao" title="Permalink to this headline">¶</a></h1>
+<p>Todas as requisições abaixo devem ser autenticadas. A autenticação deve ser fornecida através do envio do token da company através do header HTTP Authorization.
+O token da company pode ser fornecido diretamente pela Onyo ou pode ser obtido através das chamadas de login e company acima.
+Por exemplo, caso a integração esteja configurada para trabalhar com o Amor os Pedaços do Shopping Mooca Plaza, então todas as chamadas devem ter o seguinte header:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">Basic</span> <span class="pre">Mzg5OjM4OQ==</span></code></p>
+</div>
+<div class="section" id="cadastro-de-produtos-product-list">
+<h1>Cadastro de produtos (product-list)<a class="headerlink" href="#cadastro-de-produtos-product-list" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> PUT /v1/{:PARTNER_SLUG}/product-list</p>
+<p><strong>Descrição:</strong> Essa chamada é utilizada para que o PDV cadastre ou atualize os produtos de uma determinada loja através da API.
+Quando um produto é cadastrado através da API ele não é disponibilizado automaticamente para os consumidores no aplicativo. Sempre que um cadastro de um produto novo é feito o time de cardápio da Onyo recebe uma notificação e verifica se as alterações podem ser publicadas.</p>
+<p>Exemplo de payload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;products&quot;</span><span class="p">:[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;interfaceName&quot;</span><span class="p">:</span><span class="s2">&quot;Strogonoff&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;Strogonoff de carne&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;menu-item&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;minimumChoices&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;maximumChoices&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;posReference&quot;</span><span class="p">:</span><span class="s2">&quot;pdv@678&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;24.50&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;prices&quot;</span><span class="p">:[</span>
+         <span class="p">{</span>
+            <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;25.50&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;companyPosReference&quot;</span><span class="p">:</span><span class="s2">&quot;pdv@1&quot;</span>
+         <span class="p">}</span>
+      <span class="p">]</span>
+   <span class="p">}</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+<p>Exemplo de resposta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;products&quot;</span><span class="p">:[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;maximumChoices&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;numericalId&quot;</span><span class="p">:</span><span class="mi">72216</span><span class="p">,</span>
+      <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;Strogonoff de carne&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;posReference&quot;</span><span class="p">:</span><span class="s2">&quot;eatsforyou@678&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMinimum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;/v1/product/72216&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;billName&quot;</span><span class="p">:</span><span class="s2">&quot;Strogonoff&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMaximum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;posSubproducts&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;subProducts&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;prices&quot;</span><span class="p">:[</span>
+         <span class="p">{</span>
+            <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;25.50&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+            <span class="s2">&quot;companyPosReference&quot;</span><span class="p">:</span><span class="s2">&quot;eatsforyou@pdv@1&quot;</span>
+         <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;menu-item&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;minimumChoices&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;interfaceName&quot;</span><span class="p">:</span><span class="n">null</span>
+   <span class="p">}</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="listagem-de-produtos-company-product-list">
+<h1>Listagem de produtos (company-product-list)<a class="headerlink" href="#listagem-de-produtos-company-product-list" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> GET /v1/{:PARTNER_SLUG}/company/product-list</p>
+<p><strong>Descrição:</strong> Essa chamada é utilizada para que o PDV liste os produtos vendidos na loja.</p>
+<p>Exemplo de resposta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;pagination&quot;</span><span class="p">:{</span>
+   <span class="s2">&quot;previous&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+   <span class="s2">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">&quot;page&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+   <span class="s2">&quot;next&quot;</span><span class="p">:</span><span class="n">null</span>
+<span class="p">},</span>
+<span class="s2">&quot;data&quot;</span><span class="p">:[</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;numericalId&quot;</span><span class="p">:</span><span class="mi">22535</span><span class="p">,</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;image&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;rewardable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;currency&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;operator&quot;</span><span class="p">:</span><span class="s2">&quot;and&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;shortDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Refrigerante&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;http://api-staging.cloud.onyo.com/v1/mobile/product/22535&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;category&quot;</span><span class="p">:{</span>
+         <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Bebidas&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">326</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;layout&quot;</span><span class="p">:</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;minimumChoices&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;redeemPoints&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+      <span class="s2">&quot;subsidy&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;recommended&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMaximum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;menu-item&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;15.90&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;maximumChoices&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;offer&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMinimum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;rewardPoints&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;timeRule&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Refrigerante&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;fullDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Refrigerante&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;products&quot;</span><span class="p">:[</span>
+         <span class="s2">&quot;http://api-staging.cloud.onyo.com/v1/mobile/product/24102&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;redeemable&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;isMenuException&quot;</span><span class="p">:</span><span class="n">false</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;numericalId&quot;</span><span class="p">:</span><span class="mi">24102</span><span class="p">,</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;image&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;rewardable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;currency&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;operator&quot;</span><span class="p">:</span><span class="s2">&quot;and&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;shortDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Escolha o sabor&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;http://api-staging.cloud.onyo.com/v1/mobile/product/24102&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;layout&quot;</span><span class="p">:</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;minimumChoices&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;redeemPoints&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;subsidy&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;recommended&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMaximum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;choosable&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;19.90&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;maximumChoices&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;offer&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMinimum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;rewardPoints&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;timeRule&quot;</span><span class="p">:{</span>
+
+      <span class="p">},</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Escolha o sabor&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;fullDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Escolha o sabor&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;products&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;redeemable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;isMenuException&quot;</span><span class="p">:</span><span class="n">false</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+      <span class="s2">&quot;numericalId&quot;</span><span class="p">:</span><span class="mi">24103</span><span class="p">,</span>
+      <span class="s2">&quot;sequence&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;image&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;rewardable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;currency&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;operator&quot;</span><span class="p">:</span><span class="s2">&quot;and&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;shortDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Coca-Cola&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;http://api-staging.cloud.onyo.com/v1/mobile/product/24103&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;category&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;layout&quot;</span><span class="p">:</span><span class="s2">&quot;vertical&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;minimumChoices&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;redeemPoints&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;subsidy&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;recommended&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMaximum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;hidden&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;price&quot;</span><span class="p">:</span><span class="s2">&quot;19.90&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;maximumChoices&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;offer&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+      <span class="s2">&quot;preparationTimeMinimum&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;rewardPoints&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;timeRule&quot;</span><span class="p">:{</span>
+
+      <span class="p">},</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Coca-Cola&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;fullDescription&quot;</span><span class="p">:</span><span class="s2">&quot;Coca-Cola&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;products&quot;</span><span class="p">:[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;redeemable&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+      <span class="s2">&quot;isMenuException&quot;</span><span class="p">:</span><span class="n">false</span>
+   <span class="p">}</span>
+<span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="alteracao-de-disponibilidade-de-produtos-product-unavailable">
+<h1>Alteração de disponibilidade de produtos (product-unavailable)<a class="headerlink" href="#alteracao-de-disponibilidade-de-produtos-product-unavailable" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> PUT /v1/{:PARTNER_SLUG}/product/unavailable</p>
+<p><strong>Descrição:</strong> Essa chamada é utilizada para o PDV marcar um produto como disponível ou indisponível.
+Note que o valor true na chave “unavaiable” significa que o produto está indisponível.</p>
+<p>Exemplo de payload:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="mi">35775</span><span class="p">,</span> <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}]}</span>
+</pre></div>
+</div>
+<p>Exemplo de resposta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="mi">35775</span><span class="p">,</span> <span class="s2">&quot;unavailable&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">}]}</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="SMS.html" class="btn btn-neutral float-right" title="Autenticação" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="resgate.html" class="btn btn-neutral float-left" title="Autenticação" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paulo Henrique.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

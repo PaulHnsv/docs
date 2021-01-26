@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Apêndice &mdash; PedePronto 1.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Endpoints Da API" href="endpointsDaAPI.html" />
+    <link rel="prev" title="Suporte" href="suporte.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PedePronto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Index:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Apêndice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tipos-de-pedido-order-type">Tipos de Pedido (order-type)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#status-de-pedido">Status de Pedido</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#codigos-de-erro-de-pedido">Códigos de erro de pedido</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="endpointsDaAPI.html">Endpoints Da API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PedePronto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Apêndice</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/apendice.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="apendice">
+<h1>Apêndice<a class="headerlink" href="#apendice" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tipos-de-pedido-order-type">
+<h2>Tipos de Pedido (order-type)<a class="headerlink" href="#tipos-de-pedido-order-type" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>counter</p></td>
+<td><p>Um pedido a ser recebido no balcão para ser consumido no restaurante ou praça de alimentação</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>to-go</p></td>
+<td><p>Uma encomenda a ser retirada embalada para ser consumida em outro local</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>curbside</p></td>
+<td><p>Um pedido a ser retirado no Drive Thru</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>table</p></td>
+<td><p>Um pedido para ser servido na mesa informada</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>delivery</p></td>
+<td><p>Um pedido a ser entregue no endereço informado</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>card</p></td>
+<td><p>Um pedido para ser registrado em um cartão de consumo</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>payment</p></td>
+<td><p>Um pagamento por itens encomendados pessoalmente</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>coupon</p></td>
+<td><p>Um pedido que será resgatado na loja, mas que não deve ser preparado até que o cliente a resgate pessoalmente</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>room-service</p></td>
+<td><p>Um pedido a ser entregue no local informado considerando algumas opções restritivas, como por exemplo um prédio comercial</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="status-de-pedido">
+<h2>Status de Pedido<a class="headerlink" href="#status-de-pedido" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>canceled</p></td>
+<td><p>Cancelado devido ao pagamento ter sido negado ou cancelado manualmente pela Onyo</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>backend-received</p></td>
+<td><p>Aguardando processamento do pagamento</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>payment-authorized</p></td>
+<td><p>Pagamento aprovado, aguardando processamento pelo PDV</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>pos-received</p></td>
+<td><p>Recebido pelo PDV, aguardando confirmação</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>pos-accepted</p></td>
+<td><p>Aceito pelo PDV</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>pos-denied</p></td>
+<td><p>Negado pelo PDV</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>ready</p></td>
+<td><p>Pedido pronto para ser recebido pelo consumidor (informado pela loja)</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>dispatched</p></td>
+<td><p>Saiu para entrega (delivery)</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>delivered</p></td>
+<td><p>Entregue para o consumidor</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>received</p></td>
+<td><p>Recebido pelo consumidor (informado pelo próprio consumidor)</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>preparing</p></td>
+<td><p>Pedido sendo preparado pela loja</p></td>
+</tr>
+<tr class="row-odd"><td><p>15</p></td>
+<td><p>product-unavailable</p></td>
+<td><p>Preparo do pedido pausado devido a indisponibilidade de algum produto. Aguardando decisão do consumidor</p></td>
+</tr>
+<tr class="row-even"><td><p>16</p></td>
+<td><p>customer-action-needed</p></td>
+<td><p>Preparo do pedido pausado devido a uma dúvida do Staff da loja. Aguardando informação do consumidor</p></td>
+</tr>
+</tbody>
+</table>
+<p>Status não aplicáveis para integrações deste manual</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Id</p></th>
+<th class="head"><p>Código</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>consumed</p></td>
+<td><p>Consumido pelo cliente (Descontinuado)</p></td>
+</tr>
+<tr class="row-odd"><td><p>11</p></td>
+<td><p>pos-imported</p></td>
+<td><p>Importado pelo sistema de PDV</p></td>
+</tr>
+<tr class="row-even"><td><p>12</p></td>
+<td><p>pos-import-error</p></td>
+<td><p>Não importado pelo sistema de PDV</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>pos-analysing</p></td>
+<td><p>Em análise pelo sistema de PDV</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="codigos-de-erro-de-pedido">
+<h2>Códigos de erro de pedido<a class="headerlink" href="#codigos-de-erro-de-pedido" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Código</p></th>
+<th class="head"><p>Código para produto</p></th>
+<th class="head"><p>Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>onyo.order.customer-invalid</p></td>
+<td></td>
+<td><p>Quando há alguma inconsistência na informação do cliente entre a Onyo e o PDV</p></td>
+</tr>
+<tr class="row-odd"><td><p>onyo.order.item-invalid-value</p></td>
+<td></td>
+<td><p>Quando há alguma inconsistência no valor do pedido entre a Onyo e o PDV</p></td>
+</tr>
+<tr class="row-even"><td><p>onyo.order.order-invalid</p></td>
+<td></td>
+<td><p>Quando há alguma inconsistência no formato do pedido entre a Onyo e o PDV</p></td>
+</tr>
+<tr class="row-odd"><td><p>onyo.order.payment-invalid</p></td>
+<td></td>
+<td><p>Quando há alguma inconsistência no pagamento entre a Onyo e o PDV</p></td>
+</tr>
+<tr class="row-even"><td><p>onyo.order.product-missing</p></td>
+<td></td>
+<td><p>Quando está faltando um produto obrigatório para o pedido em questão</p></td>
+</tr>
+<tr class="row-odd"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-inconsistent</p></td>
+<td><p>Quando há alguma inconsistência no registro de um determinado produto (ex .: preço ou pontos)</p></td>
+</tr>
+<tr class="row-even"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-quantity-min</p></td>
+<td><p>Quando a quantidade  de um determinado produto ou subproduto for inferior ao mínimo</p></td>
+</tr>
+<tr class="row-odd"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-subproduct-unexisting</p></td>
+<td><p>Quando o subproduto não pode ser pedido para um produto porque não existe para a loja ou não é filho do suposto produto pai</p></td>
+</tr>
+<tr class="row-even"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-unavailable-time</p></td>
+<td><p>Quando o produto não pode ser pedido devido às restrições de tempo</p></td>
+</tr>
+<tr class="row-odd"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-unavailable</p></td>
+<td><p>Quando o produto não pode ser pedido porque está fora de estoque</p></td>
+</tr>
+<tr class="row-even"><td><p>onyo.order.invalid-data</p></td>
+<td><p>onyo.order.item-unexisting</p></td>
+<td><p>Quando o produto informado não existe no PDV</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="endpointsDaAPI.html" class="btn btn-neutral float-right" title="Endpoints Da API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="suporte.html" class="btn btn-neutral float-left" title="Suporte" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paulo Henrique.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

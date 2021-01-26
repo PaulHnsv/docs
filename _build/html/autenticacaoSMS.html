@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="english">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autenticação &#8212; PedePronto 1.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Autenticação" href="autenticacaoProdutos.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="autenticacao">
+<h1>Autenticação<a class="headerlink" href="#autenticacao" title="Permalink to this headline">¶</a></h1>
+<p>Todas as requisições abaixo devem ser autenticadas. A autenticação deve ser fornecida através do envio do token da company através do header HTTP Authorization.
+O token da company pode ser fornecido diretamente pela Onyo ou pode ser obtido através das chamadas de login e company acima.
+Por exemplo, caso a integração esteja configurada para trabalhar com o Amor os Pedaços do Shopping Mooca Plaza, então todas as chamadas devem ter o seguinte header:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">Basic</span> <span class="pre">Mzg5OjM4OQ==</span></code></p>
+</div>
+<div class="section" id="envio-de-sms">
+<h1>Envio de SMS<a class="headerlink" href="#envio-de-sms" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> POST /v1/{:PARTNER_SLUG}/sgm/sms</p>
+<p><strong>Descrição:</strong> Essa URL recebe um número de telefone celular e envia para ele um SMS convidando o usuário a fazer parte da Onyo.
+Se o telefone já estiver cadastrado na nossa plataforma, ele retorna um erro.</p>
+<p>Exemplo de envio de telefone com sucesso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">telephone</span><span class="p">:</span> <span class="s2">&quot;11234567890&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Exemplo de resposta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;c0256437-aa26-4da0-a6dc-e90ea390a432&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Exemplo de envio de telefone com repetido:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">telephone</span><span class="p">:</span> <span class="s2">&quot;11111111111&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Exemplo de resposta:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">&quot;telephone&quot;</span><span class="p">:</span> <span class="p">{</span>
+             <span class="s2">&quot;rootError&quot;</span><span class="p">:</span> <span class="s2">&quot;onyo.user.phone-already.exists&quot;</span>
+     <span class="p">}</span>
+     <span class="p">},</span>
+     <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;onyo.user.phone-already.exists&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Campos:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Obrigatório</p></th>
+<th class="head"><p>Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>telephone</p></td>
+<td><p>String</p></td>
+<td><p>Sim</p></td>
+<td><p>Número de celular para o qual será enviado o SMS. Deve ser o número completo com DDD, sem formatação.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PedePronto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Index:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpointsDaAPI.html">Login / Company</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpointsDaAPI.html#pedidos">Pedidos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpointsDaAPI.html#resgate">Resgate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpointsDaAPI.html#produtos">Produtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="endpointsDaAPI.html#envio-de-sms-sgm">Envio de SMS (SGM)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Autenticação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#envio-de-sms">Envio de SMS</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="endpointsDaAPI.html">Login / Company</a><ul>
+      <li>Previous: <a href="autenticacaoProdutos.html" title="previous chapter">Autenticação</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Paulo Henrique.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/autenticacaoSMS.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

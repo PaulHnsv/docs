@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+
+<html lang="english">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login &#8212; PedePronto 1.4 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Login / Company" href="endpointsDaAPI.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="login">
+<h1>Login<a class="headerlink" href="#login" title="Permalink to this headline">¶</a></h1>
+<p><em>Endpoint</em>: POST /v1/{:PARTNER_SLUG}/user/login</p>
+<p><em>Descrição</em>: Essa chamada realiza o login de um usuário e retorna o seu token JWT.</p>
+<p>Exemplo de login com sucesso:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;email&quot;:</span> <span class="pre">&quot;teste&#64;onyo.com&quot;,</span> <span class="pre">&quot;password&quot;:</span> <span class="pre">&quot;1234&quot;</span> <span class="pre">}</span></code></p>
+<p>Exemplo de resposta de login bem sucedido:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{&quot;token&quot;:</span> <span class="pre">&quot;Bearer</span> <span class="pre">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.</span>
+<span class="pre">eyJlbWFpbCI6Im9ueW9Ab255by5jb20iLCJleHAiOjE1NTgyMzQ4MDB9.</span>
+<span class="pre">x6rHLpMzqT6eQYl6v9hPM4o9_af0D2mUgvffhA7U7yw&quot;}</span></code></p>
+<p>Exemplo de resposta com falha:
+<code class="docutils literal notranslate"><span class="pre">{&quot;error&quot;:</span> <span class="pre">&quot;onyo.user.invalid-data&quot;}</span></code></p>
+<p><em>Campos</em>:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Obrigatório</p></th>
+<th class="head"><p>Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>email</p></td>
+<td><p>String</p></td>
+<td><p>Sim</p></td>
+<td><p>E-mail do usuário</p></td>
+</tr>
+<tr class="row-odd"><td><p>password</p></td>
+<td><p>String</p></td>
+<td><p>Sim</p></td>
+<td><p>Senha do usuário</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PedePronto</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Conteudo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="endpointsDaAPI.html">Login / Company</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Login</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="endpointsDaAPI.html">Login / Company</a><ul>
+      <li>Previous: <a href="endpointsDaAPI.html" title="previous chapter">Login / Company</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Paulo Henrique.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/loginCompany.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

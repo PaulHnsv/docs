@@ -1,0 +1,871 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Autenticação &mdash; PedePronto 1.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Autenticação" href="resgate.html" />
+    <link rel="prev" title="Company" href="company.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PedePronto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Index:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apendice.html">Apêndice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="endpointsDaAPI.html">Endpoints Da API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#login-company">Login / Company</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="endpointsDaAPI.html#pedidos">Pedidos</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listagem-de-pedidos-order-list">Listagem de pedidos (order-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detalhe-de-pedido-order-detail">Detalhe de pedido (order-detail)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atualizacao-de-pedido-order-patch">Atualização de pedido (order-patch)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#resgate">Resgate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#produtos">Produtos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="endpointsDaAPI.html#envio-de-sms-sgm">Envio de SMS (SGM)</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PedePronto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="endpointsDaAPI.html">Endpoints Da API</a> &raquo;</li>
+        
+      <li>Autenticação</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/pedidos.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="autenticacao">
+<h1>Autenticação<a class="headerlink" href="#autenticacao" title="Permalink to this headline">¶</a></h1>
+<p>Todas as requisições abaixo devem ser autenticadas. A autenticação deve ser fornecida através do envio do token da company através do header HTTP Authorization.
+O token da company pode ser fornecido diretamente pela Onyo ou pode ser obtido através das chamadas de login e company acima.
+Por exemplo, caso a integração esteja configurada para trabalhar com o Amor aos Pedaços do Shopping Mooca Plaza, então todas as chamadas devem ter o seguinte header:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Authorization:</span> <span class="pre">Basic</span> <span class="pre">Mzg5OjM4OQ==</span></code></p>
+</div>
+<div class="section" id="listagem-de-pedidos-order-list">
+<h1>Listagem de pedidos (order-list)<a class="headerlink" href="#listagem-de-pedidos-order-list" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> GET /v1/{:PARTNER_SLUG}/order</p>
+<p><strong>Descrição:</strong> Essa chamada retorna uma lista de pedidos da loja autenticada na requisição.
+Por padrão essa chamada executa um filtro pelos pedidos nos status 2 e 3 (payment-authorized e pos-received) que são os pedidos que o PDV precisa aprovar ou reprovar.
+Caso algum filtro de status seja feito o filtro padrão será sobrescrito.</p>
+<p><strong>Parâmetros na url:</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>Tipo</p></th>
+<th class="head"><p>Obrigatório</p></th>
+<th class="head"><p>Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>email</p></td>
+<td><p>String ou lista</p></td>
+<td><p>Não</p></td>
+<td><p>Status ou lista de status dos pedidos. Por padrão os pedidos são filtrados pelos status 2 e 3 caso nenhum filtro de status seja informado. Ex: status=3 ou status=3,4,5</p></td>
+</tr>
+<tr class="row-odd"><td><p>since</p></td>
+<td><p>String</p></td>
+<td><p>Não</p></td>
+<td><p>iso date em UTC. Ex: since=2018-04-01T00:00:00</p></td>
+</tr>
+<tr class="row-even"><td><p>until</p></td>
+<td><p>String</p></td>
+<td><p>Não</p></td>
+<td><p>iso date em UTC. Ex: until=2016-04-01T00:00:00</p></td>
+</tr>
+</tbody>
+</table>
+<p>Exemplo de URL (filtrando por pedidos aprovados e negados pelo PDV que tenham sido criados desde 01/09/2018 00:00:00 UTC):</p>
+<p><code class="docutils literal notranslate"><span class="pre">/v1/{:PARTNER_SLUG}/order?status=4,5&amp;since=2018-09-01T00:00:00</span></code></p>
+<p><strong>Campos Extras:</strong></p>
+<p>Os campos extras são retornados nessa chamada caso o pedido tenha informações adicionais como taxa de entrega ou descontos.</p>
+<p>Descrição dos campos:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>Comentário</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>optional</p></td>
+<td><p>Campo booleano (true ou false)</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>Valor em R$ do extra/desconto</p></td>
+</tr>
+<tr class="row-even"><td><p>key</p></td>
+<td><p>Campo descritivo do valor extra/desconto</p></td>
+</tr>
+<tr class="row-odd"><td><p>label</p></td>
+<td><p>Nome do valor extra/desconto</p></td>
+</tr>
+</tbody>
+</table>
+<p>Exemplo de resposta contendo um pedido:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
+ <span class="s2">&quot;pagination&quot;</span><span class="p">:{</span>
+    <span class="s2">&quot;next&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;page&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;previous&quot;</span><span class="p">:</span><span class="n">null</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;data&quot;</span><span class="p">:[</span>
+    <span class="p">{</span>
+       <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;customer_document&quot;</span><span class="p">:</span><span class="s2">&quot;53189076871&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;service_charge_value&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+       <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+       <span class="s2">&quot;display_code&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+       <span class="s2">&quot;order_type&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+       <span class="s2">&quot;nested_items&quot;</span><span class="p">:[</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="s2">&quot;35.00&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52012</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Meio a Meio&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+                <span class="p">{</span>
+                   <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                      <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52013</span><span class="p">,</span>
+                      <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Escolha os sabores&quot;</span>
+                   <span class="p">},</span>
+                   <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+                   <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+                   <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+                   <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                   <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+                      <span class="p">{</span>
+                         <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                         <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                            <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52014</span><span class="p">,</span>
+                            <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Marguerita&quot;</span>
+                         <span class="p">},</span>
+                         <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+                         <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+                         <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                         <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+                         <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+
+                         <span class="p">],</span>
+                         <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+                      <span class="p">},</span>
+                      <span class="p">{</span>
+                         <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+                         <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                         <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                            <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52017</span><span class="p">,</span>
+                            <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Presunto Parma&quot;</span>
+                         <span class="p">},</span>
+                         <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+                         <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+                         <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+                         <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+                         <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+                         <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+
+                         <span class="p">],</span>
+                         <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+                         <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                         <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+                      <span class="p">}</span>
+                   <span class="p">],</span>
+                   <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+                   <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                   <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+                <span class="p">}</span>
+             <span class="p">],</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="s2">&quot;14.00&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">71662</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Kombucha Maracujá Garrafa Booz 320ml&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+
+             <span class="p">],</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">71669</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Embalagem&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+
+             <span class="p">],</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;2.000&quot;</span>
+          <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">&quot;preparation_time_minimum&quot;</span><span class="p">:</span><span class="mi">64</span><span class="p">,</span>
+       <span class="s2">&quot;pos_import_status&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+       <span class="s2">&quot;payable_value&quot;</span><span class="p">:</span><span class="s2">&quot;49.65&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+       <span class="s2">&quot;creation_datetime&quot;</span><span class="p">:</span><span class="s2">&quot;2020-06-04T00:23:34.162787Z&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;table_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;total_value&quot;</span><span class="p">:</span><span class="s2">&quot;57.00&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;redeem&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+       <span class="s2">&quot;printed&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+       <span class="s2">&quot;address&quot;</span><span class="p">:{</span>
+          <span class="s2">&quot;city&quot;</span><span class="p">:</span><span class="s2">&quot;São Paulo&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;geoLat&quot;</span><span class="p">:</span><span class="s2">&quot;-23.5682759000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;country&quot;</span><span class="p">:</span><span class="s2">&quot;Brazil&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;complement&quot;</span><span class="p">:</span><span class="s2">&quot;Bairro: Paraíso | Complemento: 2o andar&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;number&quot;</span><span class="p">:</span><span class="s2">&quot;70&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;zipCode&quot;</span><span class="p">:</span><span class="s2">&quot;04003-000&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;state&quot;</span><span class="p">:</span><span class="s2">&quot;SP&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;street&quot;</span><span class="p">:</span><span class="s2">&quot;Rua Coronel Oscar Porto&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;geoLon&quot;</span><span class="p">:</span><span class="s2">&quot;-46.6491211000&quot;</span>
+       <span class="p">},</span>
+       <span class="s2">&quot;customer&quot;</span><span class="p">:{</span>
+          <span class="s2">&quot;telephone&quot;</span><span class="p">:</span><span class="s2">&quot;11971652467&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;email&quot;</span><span class="p">:</span><span class="s2">&quot;felipe@onyo.com&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;document&quot;</span><span class="p">:</span><span class="s2">&quot;53189076871&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">32434</span><span class="p">,</span>
+          <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Felipe Armoni Teste&quot;</span>
+       <span class="p">},</span>
+       <span class="s2">&quot;preparation_time_maximum&quot;</span><span class="p">:</span><span class="mi">74</span><span class="p">,</span>
+       <span class="s2">&quot;items&quot;</span><span class="p">:[</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52014</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Marguerita&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52013</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Escolha os sabores&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="s2">&quot;35.00&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52012</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Meio a Meio&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;None&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">52017</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Presunto Parma&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">71669</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Embalagem&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;2.000&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;base_unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;pos_name&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;dragged_by&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;addition&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;redeem_id&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;unit_price&quot;</span><span class="p">:</span><span class="s2">&quot;14.00&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;base_unit_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;product&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">71662</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Kombucha Maracujá Garrafa Booz 320ml&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;unit_pos_price&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;order_id&quot;</span><span class="p">:</span><span class="mi">1047534</span><span class="p">,</span>
+             <span class="s2">&quot;order_position&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+             <span class="s2">&quot;discount&quot;</span><span class="p">:</span><span class="mf">0.0</span><span class="p">,</span>
+             <span class="s2">&quot;prepare_rightaway&quot;</span><span class="p">:</span><span class="n">true</span><span class="p">,</span>
+             <span class="s2">&quot;unit_points&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+             <span class="s2">&quot;product_type&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+             <span class="s2">&quot;partition&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;is_note&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;pos_parent_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;parent_order_position&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+             <span class="s2">&quot;quantity&quot;</span><span class="p">:</span><span class="s2">&quot;1.000&quot;</span>
+          <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">&quot;extras&quot;</span><span class="p">:[</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;optional&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;-7.35&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;key&quot;</span><span class="p">:</span><span class="s2">&quot;discount&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;15OFF_LABARBARA_CHEFSCLUB&quot;</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;optional&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;8.00&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;key&quot;</span><span class="p">:</span><span class="s2">&quot;additional&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;label&quot;</span><span class="p">:</span><span class="s2">&quot;Entrega&quot;</span>
+          <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">&quot;payments&quot;</span><span class="p">:[</span>
+          <span class="p">{</span>
+             <span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="s2">&quot;canceled&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;gateway_code&quot;</span><span class="p">:</span><span class="s2">&quot;vtex&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;is_onyo_affiliation&quot;</span><span class="p">:</span><span class="n">false</span><span class="p">,</span>
+             <span class="s2">&quot;payment_method&quot;</span><span class="p">:</span><span class="s2">&quot;credit&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;transaction_id&quot;</span><span class="p">:</span><span class="s2">&quot;BB2AF9F03FA744A79EF62858222C4B25&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;value&quot;</span><span class="p">:</span><span class="s2">&quot;49.65&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;numerical_id&quot;</span><span class="p">:</span><span class="mi">1054575</span><span class="p">,</span>
+             <span class="s2">&quot;transaction_date&quot;</span><span class="p">:</span><span class="s2">&quot;2020-06-04 00:23:34&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;acquirer&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Cielo&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;acquirer_return&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;Tid&quot;</span><span class="p">:</span><span class="s2">&quot;91744583&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Message&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;ReturnCode&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+                <span class="s2">&quot;authId&quot;</span><span class="p">:</span><span class="s2">&quot;744583&quot;</span>
+             <span class="p">},</span>
+             <span class="s2">&quot;payment_method_pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;transaction_code&quot;</span><span class="p">:</span><span class="s2">&quot;TESTPAY1054575&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;card&quot;</span><span class="p">:{</span>
+                <span class="s2">&quot;masked_number&quot;</span><span class="p">:</span><span class="s2">&quot;4444331111&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;printed_name&quot;</span><span class="p">:</span><span class="s2">&quot;Felipe&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;card_brand&quot;</span><span class="p">:{</span>
+                   <span class="s2">&quot;pos_reference&quot;</span><span class="p">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;visa&quot;</span><span class="p">,</span>
+                   <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span>
+                   <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Visa&quot;</span>
+                <span class="p">}</span>
+             <span class="p">}</span>
+          <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">&quot;error&quot;</span><span class="p">:</span><span class="n">null</span><span class="p">,</span>
+       <span class="s2">&quot;discount_value&quot;</span><span class="p">:</span><span class="s2">&quot;7.35&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;sequence_number&quot;</span><span class="p">:</span><span class="n">null</span>
+    <span class="p">}</span>
+ <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="detalhe-de-pedido-order-detail">
+<h1>Detalhe de pedido (order-detail)<a class="headerlink" href="#detalhe-de-pedido-order-detail" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> GET /v1/{:PARTNER_SLUG}/order/{:order_id}</p>
+<p><strong>Descrição:</strong> Essa chamada retorna o JSON do pedido informado na URL.
+A resposta dessa chamada é o mesmo conteúdo da lista de itens da chamada de listagem de pedidos, porém apenas com o objeto do pedido solicitado na URL.</p>
+</div>
+<div class="section" id="atualizacao-de-pedido-order-patch">
+<h1>Atualização de pedido (order-patch)<a class="headerlink" href="#atualizacao-de-pedido-order-patch" title="Permalink to this headline">¶</a></h1>
+<p><strong>Endpoint:</strong> PATCH /v1/{:PARTNER_SLUG}/order/{:order_id}</p>
+<p><strong>Descrição:</strong> Essa chamada permite a atualização do status de um pedido para 4 (aceito / POS_ACCEPTED) ou 5 (erro / POS_DENIED).
+Caso haja algum erro com o pedido é importante que o campo erro seja enviado junto com o status 5.</p>
+<p>Exemplo de payload de aprovação de pedido:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">4</span> <span class="pre">}</span></code></p>
+<p>Exemplo de payload de reprovação de pedido:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;status&quot;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span>
+<span class="s2">&quot;error&quot;</span><span class="p">:{</span>
+   <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;onyo.order.invalid-data&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;Código de Produto Inválido&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;productErrors&quot;</span><span class="p">:[</span>
+      <span class="p">{</span>
+         <span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;http://api.onyo.com/v1/mobile/product/500&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;error&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;onyo.order.item-inconsistent&quot;</span>
+         <span class="p">}</span>
+      <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Campos disponíveis para atualização.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>TIPO</p></th>
+<th class="head"><p>OBRIGATÓRIO</p></th>
+<th class="head"><p>COMENTÁRIO</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>status</p></td>
+<td><p>Inteiro</p></td>
+<td><p>Não</p></td>
+<td><p>Status que o PDV deseja atualizar o pedido. Ex: 4 (pos-accepted), 5 (pos-denied) ou 6 (ready).</p></td>
+</tr>
+<tr class="row-odd"><td><p>error</p></td>
+<td><p>ErrorObject</p></td>
+<td><p>Sim</p></td>
+<td><p>Detalhes do motivo de negação do pedido pelo PDV</p></td>
+</tr>
+</tbody>
+</table>
+<p>ErrorObject:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>TIPO</p></th>
+<th class="head"><p>OBRIGATÓRIO</p></th>
+<th class="head"><p>COMENTÁRIO</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>String</p></td>
+<td><p>Sim</p></td>
+<td><p>Código de erro.</p></td>
+</tr>
+<tr class="row-odd"><td><p>detail</p></td>
+<td><p>Object</p></td>
+<td><p>Não</p></td>
+<td><p>Detalhes do erro, para fins de debug, não precisa seguir um formato específico.</p></td>
+</tr>
+<tr class="row-even"><td><p>message</p></td>
+<td><p>String</p></td>
+<td><p>Não</p></td>
+<td><p>Mensagem de erro</p></td>
+</tr>
+<tr class="row-odd"><td><p>productErrors</p></td>
+<td><p>list of ProductErrorObject</p></td>
+<td><p>Não</p></td>
+<td><p>Lista de erros de produtos, caso tenha ocorrido erro especificamente em algum produto</p></td>
+</tr>
+</tbody>
+</table>
+<p>ProductErrorObject description:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Campo</p></th>
+<th class="head"><p>TIPO</p></th>
+<th class="head"><p>OBRIGATÓRIO</p></th>
+<th class="head"><p>COMENTÁRIO</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>URL</p></td>
+<td><p>Sim</p></td>
+<td><p>Url do produto que contém erro</p></td>
+</tr>
+<tr class="row-odd"><td><p>error</p></td>
+<td><p>ErrorObject</p></td>
+<td><p>Sim</p></td>
+<td><p>Objeto de erro</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="resgate.html" class="btn btn-neutral float-right" title="Autenticação" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="company.html" class="btn btn-neutral float-left" title="Company" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paulo Henrique.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+.. PedePronto documentation , created by
+   Paulo Henrique on Thu Jan 21 16:55:16 2021.
+
+
+Login
+-------------------------
+
+**Endpoint:** POST /v1/{:PARTNER_SLUG}/user/login
+
+**Descrição:** Essa chamada realiza o login de um usuário e retorna o seu token JWT.
+
+Exemplo de login com sucesso: 
+
+``{"email": "teste@onyo.com", "password": "1234" }``
+
+Exemplo de resposta de login bem sucedido:
+
+``{"token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJlbWFpbCI6Im9ueW9Ab255by5jb20iLCJleHAiOjE1NTgyMzQ4MDB9.
+x6rHLpMzqT6eQYl6v9hPM4o9_af0D2mUgvffhA7U7yw"}``
+
+Exemplo de resposta com falha:
+``{"error": "onyo.user.invalid-data"}``
+
+**Campos:**
+
+.. csv-table::
+   :header: "Campo", "Tipo", "Obrigatório", "Comentário"
+   :widths: 20, 20, 20, 20
+
+   "email",	"String", "Sim", "E-mail do usuário"
+   "password", "String", "Sim", "Senha do usuário"
+
+
+
+

@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="english" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Endpoints Da API &mdash; PedePronto 1.4 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Login" href="login.html" />
+    <link rel="prev" title="Apêndice" href="apendice.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PedePronto
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Index:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introducao.html">Introdução</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apendice.html">Apêndice</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Endpoints Da API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#login-company">Login / Company</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="login.html">Login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="company.html">Company</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pedidos">Pedidos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pedidos.html">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pedidos.html#listagem-de-pedidos-order-list">Listagem de pedidos (order-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pedidos.html#detalhe-de-pedido-order-detail">Detalhe de pedido (order-detail)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pedidos.html#atualizacao-de-pedido-order-patch">Atualização de pedido (order-patch)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#resgate">Resgate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="resgate.html">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resgate.html#criacao-de-resgate-offline-order">Criação de resgate (offline-order)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#produtos">Produtos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="produtos.html">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="produtos.html#cadastro-de-produtos-product-list">Cadastro de produtos (product-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="produtos.html#listagem-de-produtos-company-product-list">Listagem de produtos (company-product-list)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="produtos.html#alteracao-de-disponibilidade-de-produtos-product-unavailable">Alteração de disponibilidade de produtos (product-unavailable)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#envio-de-sms-sgm">Envio de SMS (SGM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SMS.html">Autenticação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SMS.html#envio-de-sms">Envio de SMS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PedePronto</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Endpoints Da API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/endpointsDaAPI.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="endpoints-da-api">
+<h1>Endpoints Da API<a class="headerlink" href="#endpoints-da-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="login-company">
+<h2>Login / Company<a class="headerlink" href="#login-company" title="Permalink to this headline">¶</a></h2>
+<p>Os endpoints abaixo fazem parte do fluxo de Login e Company (cada company representa um restaurante parceiro da Onyo), o qual é utilizado para se obter o token da company, o qual é utilizado em todos os outros endpoints.
+Caso a Onyo forneça o token da company, não é necessário implementar o fluxo abaixo.
+O fluxo de Login e Company funciona da seguinte maneira:</p>
+<ol class="arabic simple">
+<li><p>Fazer uma chamada de Login para obter o token do usuário.</p></li>
+<li><p>Fazer uma chamada de Company, usando o token do usuário, para obter a lista de companies.</p></li>
+<li><p>Guardar o token da company escolhida para que ele seja utilizado nas demais chamadas.</p></li>
+</ol>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="login.html">Login</a></li>
+<li class="toctree-l1"><a class="reference internal" href="company.html">Company</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="pedidos">
+<h2>Pedidos<a class="headerlink" href="#pedidos" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pedidos.html">Autenticação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedidos.html#listagem-de-pedidos-order-list">Listagem de pedidos (order-list)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedidos.html#detalhe-de-pedido-order-detail">Detalhe de pedido (order-detail)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedidos.html#atualizacao-de-pedido-order-patch">Atualização de pedido (order-patch)</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="resgate">
+<h2>Resgate<a class="headerlink" href="#resgate" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="resgate.html">Autenticação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resgate.html#criacao-de-resgate-offline-order">Criação de resgate (offline-order)</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="produtos">
+<h2>Produtos<a class="headerlink" href="#produtos" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="produtos.html">Autenticação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="produtos.html#cadastro-de-produtos-product-list">Cadastro de produtos (product-list)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="produtos.html#listagem-de-produtos-company-product-list">Listagem de produtos (company-product-list)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="produtos.html#alteracao-de-disponibilidade-de-produtos-product-unavailable">Alteração de disponibilidade de produtos (product-unavailable)</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="envio-de-sms-sgm">
+<h2>Envio de SMS (SGM)<a class="headerlink" href="#envio-de-sms-sgm" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SMS.html">Autenticação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SMS.html#envio-de-sms">Envio de SMS</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="login.html" class="btn btn-neutral float-right" title="Login" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="apendice.html" class="btn btn-neutral float-left" title="Apêndice" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Paulo Henrique.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
